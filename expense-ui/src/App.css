@@ -29,3 +29,17 @@
   padding: 6px 4px;
   border-bottom: 1px solid #eee;
 }
+.email-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #4f46e5;
+  color: #fff;
+  cursor: pointer;
+}
+
+.email-btn:hover {
+  background: #4338ca;
+}

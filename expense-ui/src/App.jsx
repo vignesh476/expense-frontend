@@ -81,6 +81,28 @@ export default function App() {
     setAmount(entry.amount);
     setType(entry.type);
   };
+  /* ===== send mail =====*/
+  /* ================= SEND SUMMARY EMAIL ================= */
+const sendSummary = async () => {
+  const email = prompt("Enter your email to receive expense summary");
+  if (!email) return;
+
+  try {
+    await fetch(`${API}/send-summary`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Device-ID": deviceId,
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    alert("Expense summary sent to your email 📧");
+  } catch (err) {
+    console.error("Email send failed", err);
+    alert("Failed to send summary");
+  }
+};
 
   useEffect(() => {
     loadData();
@@ -142,6 +164,11 @@ export default function App() {
             <button className="add-btn" onClick={addOrUpdate}>
               {editId ? "Update Entry" : "Add Entry"}
             </button>
+           { /* ================ send mail ======*/}
+           <button className="email-btn" onClick={sendSummary}>
+            📧 Email My Summary
+          </button>
+
           </div>
         </div>
 
