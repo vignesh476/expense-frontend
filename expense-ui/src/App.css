@@ -26,3 +26,16 @@ button:active {
 .savings.negative {
   background: #ffe5e5;
 }
+.entries-container {
+  max-height: 400px; /* adjust as needed */
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+  border-bottom: 1px solid #ddd;
+}
