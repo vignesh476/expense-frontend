@@ -17,6 +17,7 @@ export default function App() {
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
   const [editId, setEditId] = useState(null);
+  const [email, setEmail] = useState("");
 
   /* ================= LOAD DATA ================= */
   const loadData = async () => {
@@ -84,8 +85,10 @@ export default function App() {
   /* ===== send mail =====*/
   /* ================= SEND SUMMARY EMAIL ================= */
 const sendSummary = async () => {
-  const email = prompt("Enter your email to receive expense summary");
-  if (!email) return;
+  if (!email) {
+    alert("Please enter your email");
+    return;
+  }
 
   try {
     await fetch(`${API}/send-summary`, {
@@ -103,6 +106,7 @@ const sendSummary = async () => {
     alert("Failed to send summary");
   }
 };
+
 
   useEffect(() => {
     loadData();
@@ -165,9 +169,19 @@ const sendSummary = async () => {
               {editId ? "Update Entry" : "Add Entry"}
             </button>
            { /* ================ send mail ======*/}
-           <button className="email-btn" onClick={sendSummary}>
-            📧 Email My Summary
+                    <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter email to receive summary"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <button className="add-btn" onClick={sendSummary}>
+            Send Summary 📧
           </button>
+
 
           </div>
         </div>
