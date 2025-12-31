@@ -1,41 +1,31 @@
-.card,
-.add-card {
-  animation: fadeUp 0.3s ease;
+.layout {
+  display: flex;
+  gap: 20px;
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-button:active {
-  transform: scale(0.97);
+.right {
+  width: 320px;
 }
 
-.savings .big {
-  font-size: 26px;
-  font-weight: bold;
-}
-
-.savings.negative {
-  background: #ffe5e5;
-}
 .entries-container {
-  max-height: 400px; /* adjust as needed */
+  max-height: 420px;
   overflow-y: auto;
-  padding-right: 4px;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 6px;
 }
 
 .entry {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 4px;
-  border-bottom: 1px solid #ddd;
+  padding: 6px 4px;
+  border-bottom: 1px solid #eee;
 }
