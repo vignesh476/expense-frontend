@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-const API_URL = "https://expense-backend-i3zu.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL;
+
+console.log("API_URL:", import.meta.env.VITE_API_URL);
 
 
 export default function App() {
