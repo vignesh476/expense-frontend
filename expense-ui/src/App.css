@@ -1,0 +1,28 @@
+.card,
+.add-card {
+  animation: fadeUp 0.3s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+.savings .big {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.savings.negative {
+  background: #ffe5e5;
+}
