@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-const API = import.meta.env.VITE_API_URL;
+// const API = import.meta.env.VITE_API_URL;
+const API = 'http://127.0.0.1:8000'
 console.log("API:", API);
 
 /* ================= DEVICE ID (ONE TIME) ================= */
@@ -16,6 +17,7 @@ export default function App() {
   const [data, setData] = useState(null);
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
+  const [description, setDescription] = useState("");
   const [editId, setEditId] = useState(null);
   const [email, setEmail] = useState("");
 
@@ -23,9 +25,7 @@ export default function App() {
   const loadData = async () => {
     try {
       const res = await fetch(`${API}/summary`, {
-        headers: {
-          "X-Device-ID": deviceId,
-        },
+        headers: { "X-Device-ID": deviceId },
       });
       if (!res.ok) throw new Error("Fetch failed");
       const json = await res.json();
@@ -40,21 +40,19 @@ export default function App() {
     if (!amount) return;
 
     const url = editId
-      ? `${API}/transaction/${editId}?amount=${amount}&type=${type}`
-      : `${API}/transaction?amount=${amount}&type=${type}`;
-
-    const method = editId ? "PUT" : "POST";
+      ? `${API}/transaction/${editId}?amount=${amount}&type=${type}&description=${encodeURIComponent(description)}`
+      : `${API}/transaction?amount=${amount}&type=${type}&description=${encodeURIComponent(description)}`;
 
     try {
       await fetch(url, {
-        method,
-        headers: {
-          "X-Device-ID": deviceId,
-        },
+        method: editId ? "PUT" : "POST",
+        headers: { "X-Device-ID": deviceId },
       });
+
       setEditId(null);
       setAmount("");
       setType("expense");
+      setDescription("");
       loadData();
     } catch (err) {
       console.error("Save failed", err);
@@ -66,9 +64,7 @@ export default function App() {
     try {
       await fetch(`${API}/transaction/${id}`, {
         method: "DELETE",
-        headers: {
-          "X-Device-ID": deviceId,
-        },
+        headers: { "X-Device-ID": deviceId },
       });
       loadData();
     } catch (err) {
@@ -81,32 +77,60 @@ export default function App() {
     setEditId(entry.id);
     setAmount(entry.amount);
     setType(entry.type);
+    setDescription(entry.description || "");
   };
-  /* ===== send mail =====*/
-  /* ================= SEND SUMMARY EMAIL ================= */
-const sendSummary = async () => {
-  if (!email) {
-    alert("Please enter your email");
-    return;
-  }
-
+const downloadExcel = async () => {
   try {
-    await fetch(`${API}/send-summary`, {
-      method: "POST",
+    const res = await fetch(`${API}/download-excel`, {
       headers: {
-        "Content-Type": "application/json",
         "X-Device-ID": deviceId,
       },
-      body: JSON.stringify({ email }),
     });
 
-    alert("Expense summary sent to your email 📧");
+    if (!res.ok) throw new Error("Download failed");
+
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "expense_summary.xlsx";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    window.URL.revokeObjectURL(url);
   } catch (err) {
-    console.error("Email send failed", err);
-    alert("Failed to send summary");
+    alert("Failed to download report");
+    console.error(err);
   }
 };
 
+
+  /* ================= SEND SUMMARY EMAIL ================= */
+  const sendSummary = async () => {
+    if (!email) {
+      alert("Please enter your email");
+      return;
+    }
+
+    try {
+      await fetch(`${API}/send-summary`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Device-ID": deviceId,
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      alert("Expense summary sent to your email 📧");
+      setEmail("");
+    } catch (err) {
+      console.error("Email send failed", err);
+      alert("Failed to send summary");
+    }
+  };
 
   useEffect(() => {
     loadData();
@@ -119,7 +143,7 @@ const sendSummary = async () => {
       <h1>Expense Snapshot</h1>
 
       <div className="layout">
-        {/* ================= LEFT SIDE ================= */}
+        {/* ================= LEFT ================= */}
         <div className="left">
           <div className="card">
             <h3>Today</h3>
@@ -142,12 +166,20 @@ const sendSummary = async () => {
             <div className="big">₹ {data.savings}</div>
           </div>
 
+          {/* ================= ADD ENTRY ================= */}
           <div className="add-card">
             <input
               type="number"
               placeholder="Amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
+            />
+
+            <input
+              type="text"
+              placeholder="Why / Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
 
             <div className="toggle">
@@ -168,25 +200,26 @@ const sendSummary = async () => {
             <button className="add-btn" onClick={addOrUpdate}>
               {editId ? "Update Entry" : "Add Entry"}
             </button>
-           { /* ================ send mail ======*/}
-                    <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter email to receive summary"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+           <button className="fab" onClick={downloadExcel}>
+           ⬇
+            </button>
+            
+            {/* ================= EMAIL ================= */}
+            <br />
+            <input
+              type="email"
+              placeholder="Enter email to receive summary"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          <button className="add-btn" onClick={sendSummary}>
-            Send Summary 📧
-          </button>
-
-
+            <button className="add-btn" onClick={sendSummary}>
+              Send Summary 📧
+            </button>
           </div>
         </div>
 
-        {/* ================= RIGHT SIDE ================= */}
+        {/* ================= RIGHT ================= */}
         <div className="right">
           <h3>Today’s Entries</h3>
 
@@ -195,9 +228,12 @@ const sendSummary = async () => {
 
             {data.today_entries.map((e) => (
               <div className="entry" key={e.id}>
-                <span className={e.type}>
-                  {e.type === "income" ? "+" : "-"} ₹{e.amount}
-                </span>
+                <div>
+                  <span className={e.type}>
+                    {e.type === "income" ? "+" : "-"} ₹{e.amount}
+                  </span>
+                  <div className="desc">{e.description}</div>
+                </div>
                 <div>
                   <button onClick={() => edit(e)}>✏️</button>
                   <button onClick={() => remove(e.id)}>🗑</button>
