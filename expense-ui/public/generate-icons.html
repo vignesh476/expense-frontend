@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate Icons</title>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    // Generate a simple icon and download it
+    function generateIcon(size, isMaskable) {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+
+      // Background
+      if (isMaskable) {
+        ctx.fillStyle = 'transparent';
+      } else {
+        ctx.fillStyle = '#6366f1';
+      }
+      ctx.fillRect(0, 0, size, size);
+
+      // Draw a simple wallet/money icon
+      ctx.fillStyle = '#ffffff';
+      const padding = size * 0.2;
+      
+      // Outer rectangle (wallet)
+      ctx.fillRect(padding, padding, size - 2 * padding, size * 0.5);
+      
+      // Inner circles (coins)
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(size * 0.35, size * 0.7, size * 0.15, 0, 2 * Math.PI);
+      ctx.fill();
+      
+      ctx.beginPath();
+      ctx.arc(size * 0.65, size * 0.75, size * 0.12, 0, 2 * Math.PI);
+      ctx.fill();
+
+      // Download
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png');
+      link.download = isMaskable ? `icon-${size}-maskable.png` : `icon-${size}.png`;
+      link.click();
+    }
+
+    // Generate all sizes
+    generateIcon(192, false);
+    setTimeout(() => generateIcon(512, false), 500);
+    setTimeout(() => generateIcon(192, true), 1000);
+    setTimeout(() => generateIcon(512, true), 1500);
+
+    document.body.innerHTML = '<p>Icons generated! Check your downloads folder.</p>';
+  </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-.layout {
+/* .layout {
   display: flex;
   gap: 20px;
 }
@@ -54,4 +54,232 @@
   height: 56px;
   font-size: 20px;
   border: none;
+} */
+.root {
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --primary: #6366f1;
+  --primary-600: #4f46e5;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --muted: #cbd5e1;
+  --primary: #3b82f6;
+  --primary-600: #2563eb;
+}
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: var(--bg);
+  margin: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(16,24,40,0.06);
+  margin-bottom: 20px;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(16,24,40,0.09);
+}
+
+ select, button, input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-family: inherit;
+  background-color: var(--card);
+  color: var(--text);
+}
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: rgba(0,0,0,0.05) 0 8px 20px;
+  margin-top: 20px;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.input-row input {
+  flex: 1; /* makes inputs expand evenly */
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ef;
+  font-size: 14px;
+  transition: box-shadow .15s, border-color .15s;
+}
+
+.input-row input:focus,
+.flex input:focus,
+.login-input:focus {
+  border-color: var(--primary-600);
+  box-shadow: 0 6px 18px rgba(79,70,229,0.12);
+  outline: none;
+}
+
+button {
+  background: linear-gradient(90deg,var(--primary),var(--primary-600));
+  color: white;
+  cursor: pointer;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(99,102,241,0.12);
+  transition: transform .08s ease, box-shadow .12s ease, opacity .12s ease;
+}
+
+button:hover { transform: translateY(-1px); }
+button:active { transform: translateY(0); opacity: .95 }
+
+.flex input,
+.flex select,
+.flex button {
+  min-width: 160px;
+  padding: 8px;
+}
+
+.flex {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;   /* 👈 REQUIRED */
+}
+
+.tx {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+  align-items: center;
+}
+
+.tx .meta {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.tx:hover { background: linear-gradient(90deg, rgba(99,102,241,0.03), transparent); }
+
+.income { color: #16a34a; }
+.expense { color: #ef4444; }
+
+/* Budget banner */
+.budget-banner {
+  background: linear-gradient(90deg, rgba(239,68,68,0.08), rgba(239,68,68,0.02));
+  border-left: 4px solid #ef4444;
+  padding: 12px 16px;
+  color: #7f1d1d;
+}
+/* Center the login card */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  font-family: Inter, Arial, sans-serif;
+}
+
+/* Card styling */
+.login-card {
+  background: #fff;
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
+}
+
+/* Title and subtitle */
+.login-title {
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #111827;
+}
+
+.login-subtitle {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Form layout */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Inputs */
+.login-input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  background-color: var(--card);
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  outline: none;
+}
+
+/* Button */
+.login-button {
+  background: #6366f1;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login-button:hover {
+  background: #4f46e5;
+}
+
+/* Forgot password link */
+.login-link {
+  display: block;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #6366f1;
+  text-decoration: none;
+}
+.actions-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: rgba(99,102,241,0.03);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.login-link:hover {
+  text-decoration: underline;
 }
