@@ -5,6 +5,7 @@ import { toggleTheme, getTheme } from "./theme";
 import TransactionForm from "./TransactionForm";
 import TransactionList from "./TransactionList";
 import Chart from "./Chart";
+import TripManager from "./TripManager";
 
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
@@ -13,6 +14,7 @@ export default function Dashboard() {
   const [budget, setBudget] = useState({ daily: "", monthly: "" });
   const [summaryType, setSummaryType] = useState("daily");
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showTrips, setShowTrips] = useState(false);
   
 
   // ================= LOAD TRANSACTIONS =================
@@ -200,6 +202,12 @@ export default function Dashboard() {
         refresh={load}
         onEdit={(tx) => setEditingTx(tx)}
       />
+      
+      {/* Optional Group Trip Split feature (frontend only) */}
+      <div style={{ marginTop: 20 }}>
+        <button onClick={() => setShowTrips((s) => !s)}>{showTrips ? "Hide" : "Group Trip Split"}</button>
+        {showTrips && <TripManager onClose={() => setShowTrips(false)} />}
+      </div>
     </div>
   );
 }

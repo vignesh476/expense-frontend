@@ -280,6 +280,19 @@ button:active { transform: translateY(0); opacity: .95 }
   border-radius: 10px;
 }
 
+.trip-row { padding: 8px; border-radius: 8px; background: var(--card); }
+.trip-row button { padding: 6px 10px; }
+
 .login-link:hover {
   text-decoration: underline;
+}
+.page {
+  max-width: 800px;
+  margin: auto;
+  padding: 30px;
+  font-family: Arial;
+}
+
+.page h2 {
+  margin-bottom: 15px;
 }

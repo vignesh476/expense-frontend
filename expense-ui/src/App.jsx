@@ -5,6 +5,12 @@ import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import Dashboard from "./Dashboard";
 import { isAuth } from "./auth";
+import About from "./About";
+import Help from "./Help";
+import Support from "./Support";
+import Footer from "./Footer"
+
+
 
 export default function App() {
   return (
@@ -14,11 +20,15 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/help" element={<Help />} />
+        <Route path="/support" element={<Support />} />
         <Route
           path="/"
           element={isAuth() ? <Dashboard /> : <Navigate to="/login" />}
         />
       </Routes>
+       <Footer />
     </BrowserRouter>
   );
 }
