@@ -30,6 +30,7 @@ Thanks`;
     <footer style={styles.footer}>
       <Link to="/about">About</Link>
       <Link to="/help">Help</Link>
+      <Link to="/Support">Support</Link>
 
       <button
         style={styles.button}

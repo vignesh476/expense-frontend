@@ -119,6 +119,7 @@ export default function Dashboard() {
   return (
     <div style={styles.page}>
       {/* Budget warnings */}
+         <div className="login-logo"> 💸 Expense Tracker</div>
       {(monthlyLimit > 0 && monthExpense > monthlyLimit) || (dailyLimit > 0 && todayExpense > dailyLimit) ? (
         <div className="budget-banner card" style={{ marginBottom: 12 }}>
           {monthlyLimit > 0 && monthExpense > monthlyLimit && (
@@ -162,22 +163,7 @@ export default function Dashboard() {
         cancelEdit={() => setEditingTx(null)}
       />
 
-      {/* Budget limits */}
-      <div style={{ marginTop: 12, display: "flex", gap: 8, alignItems: "center" }}>
-        <input
-          placeholder="Daily limit (₹)"
-          value={budget.daily}
-          onChange={(e) => setBudget((b) => ({ ...b, daily: e.target.value }))}
-          style={{ width: 160 }}
-        />
-        <input
-          placeholder="Monthly limit (₹)"
-          value={budget.monthly}
-          onChange={(e) => setBudget((b) => ({ ...b, monthly: e.target.value }))}
-          style={{ width: 160 }}
-        />
-        <button onClick={() => saveBudget(budget)}>Save Limits</button>
-      </div>
+    
 
       {/* ACTIONS */}
       <div style={styles.actions} className="actions-wrapper">

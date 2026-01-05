@@ -22,6 +22,7 @@ export default function Login() {
   return (
     <div className="login-container">
       <div className="login-card">
+        <div className="login-logo">💸 Expense Tracker</div>
         <h2 className="login-title">Welcome Back 👋</h2>
         <p className="login-subtitle">Please sign in to continue</p>
 

@@ -110,43 +110,51 @@ export default function TransactionForm({ refresh, editingTx, cancelEdit }) {
           addOrUpdate();
         }}
       >
-        <label htmlFor="description">Purpose / Description</label>
-        <input
-          id="description"
-          name="description"
-          placeholder="Purpose / Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+       <div className="form-field">
+  <label htmlFor="description">Purpose / Description</label>
+  <input
+    id="description"
+    name="description"
+    placeholder="Purpose / Description"
+    value={description}
+    onChange={(e) => setDescription(e.target.value)}
+  />
+</div>
 
-        <label htmlFor="amount">Amount</label>
-        <input
-          id="amount"
-          name="amount"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
+<div className="form-field">
+  <label htmlFor="amount">Amount</label>
+  <input
+    id="amount"
+    name="amount"
+    placeholder="Amount"
+    value={amount}
+    onChange={(e) => setAmount(e.target.value)}
+  />
+</div>
 
-        <label htmlFor="createdAt">Date & Time (optional)</label>
-        <input
-          id="createdAt"
-          name="createdAt"
-          type="datetime-local"
-          value={createdAt}
-          onChange={(e) => setCreatedAt(e.target.value)}
-        />
+<div className="form-field">
+  <label htmlFor="createdAt">Date & Time (optional)</label>
+  <input
+    id="createdAt"
+    name="createdAt"
+    type="datetime-local"
+    value={createdAt}
+    onChange={(e) => setCreatedAt(e.target.value)}
+  />
+</div>
 
-        <label htmlFor="type">Type</label>
-        <select
-          id="type"
-          name="type"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-        >
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
+<div className="form-field">
+  <label htmlFor="type">Type</label>
+  <select
+    id="type"
+    name="type"
+    value={type}
+    onChange={(e) => setType(e.target.value)}
+  >
+    <option value="income">Income</option>
+    <option value="expense">Expense</option>
+  </select>
+</div>
 
         <div style={{ display: "flex", gap: "10px" }}>
           <button type="submit">{editingId ? "Update" : "Add"}</button>

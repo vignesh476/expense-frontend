@@ -1,5 +1,6 @@
 /* Light theme (default) */
 :root {
+  /* Color tokens */
   --bg: #f4f6fb;
   --text: #111827;
   --card: #ffffff;
@@ -7,13 +8,36 @@
   --button-hover: #4f46e5;
   --border: #e6e9ef;
   --muted: #6b7280;
-  
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  --primary: var(--button);
+  --primary-600: var(--button-hover);
+
+  /* Spacing & sizes */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --max-width: 1200px;
+
+  /* Border radius */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Typographic scale */
+  --font-family-system: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-size-base: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+  --line-height-base: 1.5;
+
+  /* Accessibility */
+  --focus-ring: rgba(99,102,241,0.14);
+
+  font-family: var(--font-family-system);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
   font-weight: 400;
   color-scheme: light;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

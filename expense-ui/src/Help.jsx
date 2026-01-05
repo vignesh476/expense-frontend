@@ -1,4 +1,7 @@
+
+import { useNavigate } from "react-router-dom";
 export default function Help() {
+    const navigate = useNavigate();
   return (
     <div className="page">
       <h2>Help & Usage Guide</h2>
@@ -24,6 +27,10 @@ export default function Help() {
       <p>
         Use the “Forgot Password” option on login to reset your password.
       </p>
+      <button onClick={() => navigate("/")}>
+        ⬅ Back to Dashboard
+      </button>
     </div>
+    
   );
 }
