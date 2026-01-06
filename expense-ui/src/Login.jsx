@@ -2,12 +2,15 @@ import { useState } from "react";
 import { api } from "./api";
 import { login } from "./auth";
 import { useNavigate } from "react-router-dom";
+import "./login.css";
+
+// ✅ Import GoogleLogin component
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
 
   async function submit(e) {
     e.preventDefault();
@@ -63,6 +66,32 @@ export default function Login() {
           </span>
         </p>
 
+        {/* Social login section */}
+        <div className="social-login">
+          <div className="social-divider">— Or Sign in with —</div>
+          <div className="social-buttons">
+            {/* ✅ Google Login button */}
+            {/* <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                console.log("Google login success:", credentialResponse);
+                // send credentialResponse.credential to your backend for verification
+              }}
+              onError={() => {
+                console.log("Google login failed");
+              }}
+            /> */}
+      
+ 
+              <div className="social-button google disabled">🔍 Google</div>
+              <div className="social-button apple disabled">🍎 Apple ID</div>
+              <div className="social-button facebook disabled">📘 Facebook</div>
+            </div>
+            <p className="social-disabled-note">
+              Social sign‑up is disabled for now. Coming soon!
+            </p>
+
+
+        </div>
       </div>
     </div>
   );

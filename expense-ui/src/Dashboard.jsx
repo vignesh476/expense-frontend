@@ -6,7 +6,8 @@ import TransactionForm from "./TransactionForm";
 import TransactionList from "./TransactionList";
 import Chart from "./Chart";
 import TripManager from "./TripManager";
-
+import "./dashboard.css";
+   import BillsReminder from "./BillsReminder";
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,8 +16,47 @@ export default function Dashboard() {
   const [summaryType, setSummaryType] = useState("daily");
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [showTrips, setShowTrips] = useState(false);
-  
+  const [dueSoon, setDueSoon] = useState([]);
 
+useEffect(() => {
+  const raw = localStorage.getItem("bills");
+  if (raw) {
+    const bills = JSON.parse(raw);
+    const today = new Date().toISOString().slice(0, 10);
+    const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+    const upcoming = bills.filter(
+      (b) => b.dueDate === today || b.dueDate === tomorrow
+    );
+    setDueSoon(upcoming);
+  }
+}, []);
+function FinancialHealthIndicator({ income, expense }) {
+  const score = income > 0 ? ((income - expense) / income) * 100 : 0;
+
+  let status = "";
+  let color = "";
+
+  if (score > 50) {
+    status = "Healthy";
+    color = "#16a34a"; // green
+  } else if (score > 0) {
+    status = "Caution";
+    color = "#facc15"; // yellow
+  } else {
+    status = "Overspending";
+    color = "#ef4444"; // red
+  }
+
+  return (
+    <div className="card health-indicator">
+      <h4>Financial Health</h4>
+      <p style={{ color, fontSize: "20px", fontWeight: "bold" }}>{status}</p>
+      <span style={{ fontSize: "14px", color: "var(--muted-text)" }}>
+        Score: {Math.round(score)}%
+      </span>
+    </div>
+  );
+}
   // ================= LOAD TRANSACTIONS =================
   async function load() {
     try {
@@ -94,7 +134,7 @@ export default function Dashboard() {
       return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
     })
     .reduce((a, b) => a + b.amount, 0);
-
+    
   // ================= UI =================
   function saveBudget(b) {
     setBudget(b);
@@ -144,7 +184,7 @@ export default function Dashboard() {
       </div>
 
       {/* SUMMARY */}
-      <div style={styles.summary}>
+      <div style={styles.summary} className="dashboard-summary">
         <Chart income={income} expense={expense} />
         <div style={styles.card}>
           <h4 style={{ color: isDark ? "#f8fafc" : "#111827", margin: "0 0 8px 0", fontSize: "16px" }}>Income</h4>
@@ -154,7 +194,16 @@ export default function Dashboard() {
           <h4 style={{ color: isDark ? "#f8fafc" : "#111827", margin: "0 0 8px 0", fontSize: "16px" }}>Expense</h4>
           <p style={{ color: "#ef4444", fontSize: "24px", fontWeight: "bold", margin: "0" }}>₹{expense}</p>
         </div>
-      </div>
+ <FinancialHealthIndicator income={income} expense={expense} />
+ {dueSoon.length > 0 && (
+  <div className="bills-banner-inline" >
+    ⚠️ Bills due: {dueSoon.map(b => b.title).join(", ")}
+  </div>
+)}
+
+
+
+ </div>
 
       {/* ADD / EDIT TRANSACTION */}
       <TransactionForm
@@ -188,7 +237,9 @@ export default function Dashboard() {
         refresh={load}
         onEdit={(tx) => setEditingTx(tx)}
       />
-      
+       <div style={{ marginTop: 30 }}>
+  <BillsReminder />
+</div>
       {/* Optional Group Trip Split feature (frontend only) */}
       <div style={{ marginTop: 20 }}>
         <button onClick={() => setShowTrips((s) => !s)}>{showTrips ? "Hide" : "Group Trip Split"}</button>
@@ -215,6 +266,7 @@ const styles = {
     display: "flex",
     gap: 20,
     marginTop: 20,
+    marginBottom: 25,
   },
   card: {
     background: "#fff",
@@ -237,4 +289,5 @@ const styles = {
     padding: "8px 0",
     borderBottom: "1px solid #eee",
   },
+  
 };

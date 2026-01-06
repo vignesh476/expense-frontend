@@ -1,0 +1,202 @@
+/* Container centers the card */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Card styling */
+.login-card {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Logo and title */
+.login-logo {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.login-title {
+  font-size: 22px;
+  margin-bottom: 6px;
+  color: #34495e;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: #7f8c8d;
+  margin-bottom: 30px;
+}
+
+/* Form layout */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Input fields */
+.login-input {
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.login-input:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Button */
+.login-button {
+  background-color: #3498db;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #2980b9;
+}
+
+/* Links */
+.login-link {
+  display: block;
+  margin-top: 16px;
+  font-size: 13px;
+  color: #2980b9;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* Register text */
+.login-card p span {
+  color: #3498db;
+  font-weight: 500;
+}
+/* Social login section */
+/* Social login section */
+.social-login {
+  margin: 30px 0 20px;
+  text-align: center;
+}
+
+.social-divider {
+  margin: 20px 0;
+  font-size: 13px;
+  color: #7f8c8d;
+  position: relative;
+}
+
+.social-divider::before,
+.social-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #ccc;
+}
+
+.social-divider::before {
+  left: 0;
+}
+
+.social-divider::after {
+  right: 0;
+}
+
+/* Social buttons container */
+.social-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.social-disabled-note {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Base button style */
+.social-button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+/* Hover effect */
+.social-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Provider-specific colors */
+.social-button.google {
+  color: #db4437;
+  border-color: #db4437;
+}
+
+.social-button.google:hover {
+  background-color: #db4437;
+  color: #fff;
+}
+
+.social-button.apple {
+  color: #000;
+  border-color: #000;
+}
+
+.social-button.apple:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.social-button.facebook {
+  color: #3b5998;
+  border-color: #3b5998;
+}
+
+.social-button.facebook:hover {
+  background-color: #3b5998;
+  color: #fff;
+}

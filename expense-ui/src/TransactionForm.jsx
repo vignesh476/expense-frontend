@@ -99,67 +99,74 @@ export default function TransactionForm({ refresh, editingTx, cancelEdit }) {
   }
 
   return (
-    <div className="card">
-      <h3>{editingId ? "Edit Transaction" : "Add Transaction"}</h3>
+    <div style={styles.card}>
+      <h3 style={styles.heading}>
+        {editingId ? "Edit Transaction" : "Add Transaction"}
+      </h3>
 
       <form
-        className="flex"
-        style={{ flexDirection: "column", gap: "12px", marginTop: "10px" }}
+        style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "10px" }}
         onSubmit={(e) => {
           e.preventDefault();
           addOrUpdate();
         }}
       >
-       <div className="form-field">
-  <label htmlFor="description">Purpose / Description</label>
-  <input
-    id="description"
-    name="description"
-    placeholder="Purpose / Description"
-    value={description}
-    onChange={(e) => setDescription(e.target.value)}
-  />
-</div>
+        <div style={styles.formField}>
+          <label htmlFor="description" style={styles.label}>Purpose / Description</label>
+          <input
+            id="description"
+            name="description"
+            placeholder="Purpose / Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            style={styles.input}
+          />
+        </div>
 
-<div className="form-field">
-  <label htmlFor="amount">Amount</label>
-  <input
-    id="amount"
-    name="amount"
-    placeholder="Amount"
-    value={amount}
-    onChange={(e) => setAmount(e.target.value)}
-  />
-</div>
+        <div style={styles.formField}>
+          <label htmlFor="amount" style={styles.label}>Amount</label>
+          <input
+            id="amount"
+            name="amount"
+            placeholder="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            style={styles.input}
+          />
+        </div>
 
-<div className="form-field">
-  <label htmlFor="createdAt">Date & Time (optional)</label>
-  <input
-    id="createdAt"
-    name="createdAt"
-    type="datetime-local"
-    value={createdAt}
-    onChange={(e) => setCreatedAt(e.target.value)}
-  />
-</div>
+        <div style={styles.formField}>
+          <label htmlFor="createdAt" style={styles.label}>Date & Time (optional)</label>
+          <input
+            id="createdAt"
+            name="createdAt"
+            type="datetime-local"
+            value={createdAt}
+            onChange={(e) => setCreatedAt(e.target.value)}
+            style={styles.input}
+          />
+        </div>
 
-<div className="form-field">
-  <label htmlFor="type">Type</label>
-  <select
-    id="type"
-    name="type"
-    value={type}
-    onChange={(e) => setType(e.target.value)}
-  >
-    <option value="income">Income</option>
-    <option value="expense">Expense</option>
-  </select>
-</div>
+        <div style={styles.formField}>
+          <label htmlFor="type" style={styles.label}>Type</label>
+          <select
+            id="type"
+            name="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            style={styles.input}
+          >
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </div>
 
         <div style={{ display: "flex", gap: "10px" }}>
-          <button type="submit">{editingId ? "Update" : "Add"}</button>
+          <button type="submit" style={styles.buttonSubmit}>
+            {editingId ? "Update" : "Add"}
+          </button>
           {editingId && (
-            <button type="button" onClick={cancelEdit}>
+            <button type="button" onClick={cancelEdit} style={styles.buttonCancel}>
               Cancel
             </button>
           )}
@@ -168,3 +175,52 @@ export default function TransactionForm({ refresh, editingTx, cancelEdit }) {
     </div>
   );
 }
+
+
+const styles = {
+  card: {
+    background: "#fff",
+    borderRadius: "11px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+    padding: "20px",
+    marginBottom: "24px",
+  },
+  heading: {
+    margin: "0 0 16px",
+    fontSize: "20px",
+    fontWeight: 600,
+    color: "#111827",
+  },
+  formField: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "6px",
+  },
+  label: {
+    fontSize: "14px",
+    fontWeight: 500,
+    color: "#374151",
+  },
+  input: {
+    padding: "10px 12px",
+    border: "1px solid #d1d5db",
+    borderRadius: "8px",
+    fontSize: "14px",
+  },
+  buttonSubmit: {
+    background: "#2563eb",
+    color: "#fff",
+    padding: "10px 16px",
+    borderRadius: "8px",
+    border: "none",
+    cursor: "pointer",
+  },
+  buttonCancel: {
+    background: "#f3f4f6",
+    color: "#374151",
+    padding: "10px 16px",
+    borderRadius: "8px",
+    border: "none",
+    cursor: "pointer",
+  },
+};
